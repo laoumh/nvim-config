@@ -930,6 +930,13 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
+  --
+  -- MEUS PLUGINS --
+  -- comentário de linha e bloco
+  {
+    'numToStr/Comment.nvim',
+    -- Ver https://github.com/numToStr/Comment.nvim?tab=readme-ov-file#configuration-optional para configurações
+  }
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
