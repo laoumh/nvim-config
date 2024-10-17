@@ -210,6 +210,15 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   command = 'setfiletype sshconfig',
 })
 
+-- Corretor ortográfico
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Habilita corretor ortográfico em arquivos markdown',
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = 'en_us,pt_br'
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
