@@ -70,3 +70,37 @@ examples of adding popularly requested plugins.
 
 [The Only Video You Need to Get Started with Neovim](https://youtu.be/m8C0Cq9Uv9o)
 
+## Uso remoto
+
+Ao invés de instalar novamente no servidor, possível montar o diretório remoto localmente com `sshfs`:
+
+```sh
+# Instala 
+sudo apt install sshfs
+
+# Monta diretório remoto
+sshfs [usuario@]<servidor_removo>:</diretorio/projeto/alvo> <~/mnt/diretorio/projeto/local>
+
+# Desmonta diretória remoto
+fusermount -u <~/mnt/diretorio/projeto/local>
+```
+
+### `sshfs` com `snap`
+
+Devido ao funcionamento *sandboxing* dos pacotes `snap`, necessário configuração para acesso do diretório montado (também vale para VSCode, por exemplo):
+
+1 - Habilitar `user_allow_other` em `/etc/fuse.conf`:
+
+```sh
+sudoedit /etc/fuse.conf
+
+# Descomentar user_allow_other
+```
+
+2 - Montar diretório com opção `allow_root`:
+
+```sh
+sshfs -o allow_root [usuario@]<servidor_removo>:</diretorio/projeto/alvo> <~/mnt/diretorio/projeto/local>
+```
+
+Ver *issue* [Unable to open visual studio code when inside sshfs mounted drive UBUNTU WSL](https://askubuntu.com/a/1385497).
