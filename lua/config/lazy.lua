@@ -8,6 +8,7 @@
 --  To update plugins you can run
 --    :Lazy update
 --  Docs: https://lazy.folke.io/
+-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 require('lazy').setup({
   spec = {
     { import = 'plugins' },
