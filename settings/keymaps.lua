@@ -39,3 +39,7 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 vim.keymap.set('n', '<C-w>t', '<cmd>tabnew<CR>', { desc = 'Abre nova aba' })
 vim.keymap.set('n', '<C-w>c', '<cmd>tabclose<CR>', { desc = 'Fecha aba atual' })
+
+-- Abre página github do Lazy short URL plugin spec
+vim.keymap.set('n', 'gX', function() vim.ui.open("https://github.com/" .. vim.fn.expand("<cfile>")) end, { desc = 'Abre página github do Lazy short URL plugin spec' })
+
