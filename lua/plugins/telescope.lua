@@ -53,6 +53,7 @@ return  { -- Fuzzy Finder (files, lsp, etc)
         --
         defaults = {
           path_display = { 'truncate' },
+          sorting_strategy = "ascending",
           -- mappings = {
           --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           -- },
