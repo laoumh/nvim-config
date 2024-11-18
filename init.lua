@@ -38,6 +38,8 @@ If you experience any errors while trying to install kickstart, run `:checkhealt
 I hope you enjoy your Neovim journey,
 - TJ
 --]]
+--
+-- NOTE: a ordem em que os módulos são carregados importa!
 
 -- Carrega configurações
 require("settings.keymaps")
@@ -46,6 +48,9 @@ require("settings.autocommands")
 
 -- Carrega lazy.nvim plugin manager
 require("config.lazy")
+
+-- Carrega colorscheme depois do lazy, já que pode depender de plugins
+require("settings.colorscheme")
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
