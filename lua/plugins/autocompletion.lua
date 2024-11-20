@@ -102,6 +102,7 @@ return {
         },
         { name = 'luasnip' },
         { name = 'path' },
+        { name = 'vimtex' },
       },
     }
   end,
