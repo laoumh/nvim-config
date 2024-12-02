@@ -9,6 +9,10 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- vim.opt.relativenumber = true
 
+-- Quebra de linha automática
+vim.opt.wrap = true
+vim.opt.diffopt:append{'followwrap'}
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = ''
 
