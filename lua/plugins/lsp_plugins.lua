@@ -9,6 +9,7 @@ return {
       library = {
         -- Load luvit types when the `vim.uv` word is found
         { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        { plugins = { "nvim-dap-ui" }, types = true },
       },
     },
   },
@@ -21,7 +22,7 @@ return {
     dependencies = {
       'neovim/nvim-lspconfig',
       'nvim-telescope/telescope.nvim',
-      -- 'mfussenegger/nvim-dap-python',
+      'mfussenegger/nvim-dap-python',
     },
     opts = {
       notify_user_on_venv_activation = true,
