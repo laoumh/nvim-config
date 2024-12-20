@@ -240,6 +240,7 @@ return {
         },
 
         -- Ver plugin venv-select acima
+        -- Ver https://github.com/python-lsp/python-lsp-server
         pylsp = {
         },
 
