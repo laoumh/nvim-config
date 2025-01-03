@@ -1,87 +1,147 @@
 -- Debugger e extensões
 --
--- NOTE: eventualmente pode ser interessante algo como
--- https://github.com/ldelossa/nvim-dap-projects/
+-- NOTE: Linguagens configuradas:
+--  - Python
+--
+-- DOCS:
+-- Eventos DAP: https://microsoft.github.io/debug-adapter-protocol/specification.html
+--
+-- TODO: 
+--  - Se necessário configuração por projeto: https://github.com/ldelossa/nvim-dap-projects/
+--  - Se necessária instalação automática de DAPs: 'jay-babu/mason-nvim-dap.nvim',
 return {
-  "mfussenegger/nvim-dap",
-  dependencies = {
-    "rcarriga/nvim-dap-ui",
-    "mfussenegger/nvim-dap-python",
-    "nvim-neotest/nvim-nio",
-  },
-  config = function()
-    local dap = require("dap")
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
+    },
+    ft = {"python"},
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
 
-    -- Configura aparênica
-    vim.fn.sign_define('DapBreakpoint', {text='', texthl='', linehl='', numhl=''})
-    vim.fn.sign_define('DapStopped', {text='', texthl='', linehl='Cursor', numhl=''})
+      -- Configura aparência
+      vim.fn.sign_define('DapBreakpoint', {text='', texthl='', linehl='', numhl=''})
+      vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='', linehl='', numhl=''})
+      vim.fn.sign_define('DapStopped', {text='', texthl='', linehl='Cursor', numhl=''})
 
-    vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint)
-    -- vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
-
-    -- Eval var under cursor
-    vim.keymap.set("n", "<space>?", function()
-      require("dapui").eval(nil, { enter = true })
-    end)
-
-    vim.keymap.set("n", "<F1>", dap.continue)
-    vim.keymap.set("n", "<F2>", dap.step_into)
-    vim.keymap.set("n", "<F3>", dap.step_over)
-    vim.keymap.set("n", "<F4>", dap.step_out)
-    vim.keymap.set("n", "<F5>", dap.step_back)
-    vim.keymap.set("n", "<F13>", dap.restart)
-
-    -- Configura nvim-dap-python
-    require("dap-python").setup()
-    -- table.insert(dap.configurations.python[1], {
-    --   justMyCode = false,
-    -- })
-    dap.configurations.python[1]["justMyCode"] = false
-
-    -- Configura nvim-dap-ui
-    local dapui = require("dapui")
-    dapui.setup({
-      layouts = {{
-          elements = { {
-              id = "scopes",
-              size = 0.25
-            }, {
-              id = "breakpoints",
-              size = 0.25
-            }, {
-              id = "stacks",
-              size = 0.25
-            }, {
-              id = "watches",
-              size = 0.25
-            } },
-          position = "left",
-          size = 40
-        },
+      -- [[ CONFIGURA ATALHOS ]]
+      local wk = require("which-key")
+      wk.add({
         {
-          elements = { {
-              id = "repl",
-              size = 0.5
-            }, {
-              id = "console",
-              size = 0.5
-            } },
-          position = "bottom",
-          size = 10
+          mode = "n", icon = {color = "yellow"},
+          { "<F1>", dap.continue, desc = "Debug: iniciar/continuar", icon = "" },
+          { "<F2>", dap.step_into, desc = "Debug: step", icon = "" },
+          { "<F3>", dap.step_over, desc = "Debug: next", icon = "" },
+          { "<F4>", dap.step_out, desc = "Debug: step out", icon = "" },
+          { "<F5>", dap.step_back, desc = "Debug: step back", icon = "" },
         },
-      },
-    })
-    dap.listeners.before.attach.dapui_config = function()
-      dapui.open()
+      })
+      wk.add({
+        { "<leader>d", group = "[D]ebug", icon = { icon = "", color = "yellow" }, mode = "n" },
+        {
+          mode = "n",
+          -- Ações debug
+          { "<leader>db", dap.toggle_breakpoint, desc = "Toggle breakpoint" },
+          { "<leader>dc", dap.clear_breakpoints, desc = "Clear breakpoint", icon = {icon = "󰇾", color = "red"} },
+          { "<leader>dr", dap.run_to_cursor, desc = "Run to cursor", icon = "" },
+          { "<leader>du", dap.up, desc = "Up the stacktrace", icon = "" },
+          { "<leader>dd", dap.down, desc = "Down the stacktrace", icon = "" },
+          { "<leader>df", dap.focus_frame, desc = "Focus frame", icon = "󰋱" },
+          {
+            '<leader>dB',
+            function()
+              dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+            end,
+            desc = "Conditional breakpoint",
+            icon = ""
+          },
+
+          -- Interrompe / reinicia debugger
+          { "<leader>dr", function ()
+              if dap.session() then
+                dap.restart()
+              else
+                dap.run_last()
+              end
+            end,
+            desc = "Restart", icon = {icon = "", color = "yellow"}
+          },
+          { "<leader>ds", function ()
+              dap.disconnect()
+              dapui.close()
+            end,
+            desc = "Stop debugging", icon = {icon = "", color = "red"}
+          },
+
+          -- inspeção de variáveis
+          { "<leader>di", function()
+                dapui.eval(nil, { enter = true })
+              end
+            , desc = "Inspect element", icon = {icon = "", color = "yellow"}
+          },
+        },
+      })
+      -- Exceções
+      wk.add({
+        { "<leader>dx", group = "E[x]ceptions", icon = { icon = "", color = "yellow" }, mode = "n" },
+        {
+          mode = "n",
+          { "<leader>dxs", function ()
+              dap.set_exception_breakpoints()
+            end,
+            desc = "Habilita breakpoint em exceções",
+            icon = { icon = "", color = "green" }
+          },
+          { "<leader>dxu", function ()
+              dap.set_exception_breakpoints({})
+            end,
+            desc = "Desabilita breakpoint em exceções",
+            icon = { icon = "", color = "red" }
+          },
+        },
+      })
+      -- Configura nvim-dap-ui
+      dapui.setup({
+        controls = {
+          element = "repl",
+          enabled = false,
+        },
+      })
+      -- Abre UI automaticamente ao iniciar debugger
+      dap.listeners.before.launch.dapui_config = dapui.open
+      dap.listeners.before.attach.dapui_config = dapui.open
+
+      -- Limpa linha de comando
+      dap.listeners.before.event_initialized.dapui_config = function ()
+        print(" ")
+      end
+
+      dap.listeners.after.event_exited.dapui_config = function ()
+        print("Terminado")
+      end
     end
-    dap.listeners.before.launch.dapui_config = function()
-      dapui.open()
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+    lazy = true,
+    ft = "python",
+    config = function()
+      local dap = require("dap")
+      require("dap-python").setup()
+
+      -- Adiciona opções à configuração padrão do nvim-dap-python
+      for _, pyconfig in ipairs(dap.configurations.python) do
+        pyconfig["justMyCode"] = false
+        pyconfig["console"] = "integratedTerminal"
+        if pyconfig["request"] == "attach" then
+          pyconfig["redirectOutput"] = true
+        end
+      end
     end
-    dap.listeners.before.event_terminated.dapui_config = function()
-      dapui.close()
-    end
-    dap.listeners.before.event_exited.dapui_config = function()
-      dapui.close()
-    end
-  end
+  },
 }
