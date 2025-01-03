@@ -6,7 +6,14 @@ return {
     'folke/todo-comments.nvim',
     event = 'VimEnter',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false }
+    opts = {
+      signs = true,
+      merge_keywords = true,
+      keywords = {
+        NOTE = { icon = "󰍩 ", color = "hint", alt = { "INFO" } },
+        DOCS = {icon = "󰈙 "}
+      }
+    }
   },
   {
     -- Ver :H comment.config para detalhes sobre
