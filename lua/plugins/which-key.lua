@@ -21,12 +21,11 @@ return  { -- Useful plugin to show you pending keybinds.
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
       },
-      expand = 10,
+      expand = 0,
 
       -- Document existing key chains
       spec = {
         { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-        { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
