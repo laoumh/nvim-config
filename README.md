@@ -26,7 +26,7 @@ sudo snap install nvim --classic
 Clonar o arquivo de configuração em `~/.config/nvim`:
 
 ```sh
-git clone git@github.com:laoumh/kickstart.nvim.git "${$HOME/.config}"/nvim
+git clone git@github.com:laoumh/nvim-config.git "${$HOME/.config}"/nvim
 ```
 
 ### Pós-instalação
