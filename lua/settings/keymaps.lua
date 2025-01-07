@@ -12,8 +12,6 @@ vim.g.maplocalleader = ' '
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Fecha NeoVim
 vim.keymap.set('n', '<C-Q>', '<cmd>qall<CR>', { desc = 'Fecha NeoVim' })
--- Abre página github do Lazy short URL plugin spec
-vim.keymap.set('n', 'gX', function() vim.ui.open("https://github.com/" .. vim.fn.expand("<cfile>")) end, { desc = 'Abre página github do Lazy short URL plugin spec' })
 -- Abre lista quickfix
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
