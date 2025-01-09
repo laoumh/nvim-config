@@ -1,47 +1,7 @@
 -- LSP Plugins
+-- DOCS:
+-- - Ver `:help lsp-vs-treesitter`
 return {
-  {
-    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    opts = {
-      library = {
-        -- Load luvit types when the `vim.uv` word is found
-        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-        { plugins = { "nvim-dap-ui" }, types = true },
-      },
-    },
-  },
-  { 'Bilal2453/luvit-meta', lazy = true },
-  { -- Seletor de ambiente virtual Python
-    'linux-cultist/venv-selector.nvim',
-    branch = "regexp",
-    ft = "python",
-    lazy = true,
-    dependencies = {
-      'neovim/nvim-lspconfig',
-      'nvim-telescope/telescope.nvim',
-      'mfussenegger/nvim-dap-python',
-    },
-    opts = {
-      notify_user_on_venv_activation = true,
-      debug = false,
-    },
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "python",
-        group = vim.api.nvim_create_augroup("VenvSelectorConfig", {}),
-        callback = function(event)
-          local wk = require("which-key")
-          wk.add({
-            buffer = event.buf,
-            { '<leader>vs', '<cmd>VenvSelect<cr>' },
-          })
-        end,
-      })
-    end,
-  },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
