@@ -1,6 +1,5 @@
 -- Autocompletion plugins
--- Autoformat
--- Se algum dia precisar, ver 'stevearc/conform.nvim'
+-- Autoformat: se algum dia precisar, ver 'stevearc/conform.nvim'
 return {
   -- Detect tabstop and shiftwidth automatically
   { 'tpope/vim-sleuth' },
@@ -16,6 +15,22 @@ return {
       local cmp = require 'cmp'
       cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
+  },
+  {
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    dependencies = {
+      { 'Bilal2453/luvit-meta', lazy = true },
+    },
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        { plugins = { "nvim-dap-ui" }, types = true },
+      },
+    },
   },
   {
     'hrsh7th/nvim-cmp',
@@ -42,7 +57,7 @@ return {
             luasnip.lsp_expand(args.body)
           end,
         },
-        completion = { completeopt = 'menu,menuone,noinsert' },
+        completion = { completeopt = 'menu,menuone,noinsert,noselect' },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
@@ -111,14 +126,9 @@ return {
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
             group_index = 0,
           },
-          { name = 'nvim_lsp',
-            option = {
-              markdown_oxide = {
-                keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
-              },
-            },
-          },
+          { name = 'nvim_lsp' },
           { name = 'luasnip' },
+          { name = 'buffer' },
           { name = 'path' },
           { name = 'vimtex' },
         },

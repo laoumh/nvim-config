@@ -130,18 +130,5 @@ return {
     },
     lazy = true,
     ft = "python",
-    config = function()
-      local dap = require("dap")
-      require("dap-python").setup()
-
-      -- Adiciona opções à configuração padrão do nvim-dap-python
-      for _, pyconfig in ipairs(dap.configurations.python) do
-        pyconfig["justMyCode"] = false
-        pyconfig["console"] = "integratedTerminal"
-        if pyconfig["request"] == "attach" then
-          pyconfig["redirectOutput"] = true
-        end
-      end
-    end
   },
 }

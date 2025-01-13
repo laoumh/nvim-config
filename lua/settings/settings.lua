@@ -7,17 +7,25 @@ vim.g.have_nerd_font = true
 
 -- Make line numbers default
 vim.opt.number = true
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Quebra de linha automática
 vim.opt.wrap = true
 vim.opt.diffopt:append{'followwrap'}
 
--- Enable mouse mode, can be useful for resizing splits for example!
+-- No mouse
 vim.opt.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
+
+-- Habilita spellcheck
+-- Agenda essa configuração porque spell carrega em memória arquivo com palavras
+-- Ver `:help spell-remarks`
+vim.schedule(function()
+  vim.opt.spelllang = 'en_us,pt_br'
+  vim.opt.spell = true
+end)
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
