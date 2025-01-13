@@ -10,3 +10,21 @@ require('lspconfig').pylsp.setup({
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 })
 
+--[[ DAP
+DOCS:
+Instalar `debugpy`. Pode ser instalado com Mason ou em
+ambiente virtual.
+
+--]]
+local dap = require("dap")
+require("dap-python").setup(nil, {
+  console = "integratedTerminal"
+})
+
+-- Adiciona opções à configuração padrão do nvim-dap-python
+for _, pyconfig in ipairs(dap.configurations.python) do
+  pyconfig["justMyCode"] = true
+  if pyconfig["request"] == "attach" then
+    pyconfig["redirectOutput"] = true
+  end
+end
