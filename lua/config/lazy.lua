@@ -23,23 +23,14 @@ require('lazy').setup({
   rocks = {
     enabled = false,
   },
-  ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
-    },
+  -- automatically check for plugin updates
+  checker = {
+    enabled = true,
+    -- get a notification when new updates are found
+    notify = true,
+    -- check daily
+    frequency = 3600*24,
+    -- check for pinned packages that can't be updated
+    check_pinned = true,
   },
 })
