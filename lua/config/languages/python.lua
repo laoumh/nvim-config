@@ -7,7 +7,7 @@ Instalar python-lsp-server:
 
 --]]
 require('lspconfig').pylsp.setup({
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  capabilities = require('utils.extend-capabilities'),
 })
 
 --[[ DAP

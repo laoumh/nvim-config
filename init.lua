@@ -15,6 +15,13 @@ require("settings.autocommands")
 -- Carrega lazy.nvim plugin manager
 require("config.lazy")
 
+-- Carrega configurações específicas de linguagens
+require("config.languages.css")
+require("config.languages.html")
+require("config.languages.markdown")
+require("config.languages.lua")
+require("config.languages.python")
+
 -- Carrega colorscheme depois do lazy, já que pode depender de plugins
 require("settings.colorscheme")
 
