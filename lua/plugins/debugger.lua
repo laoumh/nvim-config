@@ -119,7 +119,7 @@ return {
       end
 
       dap.listeners.after.event_exited.dapui_config = function ()
-        print("Terminado")
+        vim.notify("Debugger encerrado", vim.log.levels.INFO)
       end
     end
   },

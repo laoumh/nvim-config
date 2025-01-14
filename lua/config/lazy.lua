@@ -33,4 +33,9 @@ require('lazy').setup({
     -- check for pinned packages that can't be updated
     check_pinned = true,
   },
+  -- Desabilita detecção de alterações na configuração
+  change_detection = {
+    enabled = false,
+    notify = false,
+  },
 })

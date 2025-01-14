@@ -32,7 +32,7 @@ return {
             lint.try_lint()
           end,
         })
-        print("Linter enabled")
+        vim.notify("Linter enabled")
       end
       if lint_enabled then
         lint_autocmd()
@@ -46,7 +46,7 @@ return {
           -- Clear diagnostics to remove virtual text and signs
           vim.diagnostic.reset(nil, vim.api.nvim_get_current_buf())
           lint_enabled = false
-          print("Linter disabled")
+          vim.notify("Linter disabled")
         else
           -- If lint is disabled, toggle enables it
           lint.try_lint()
