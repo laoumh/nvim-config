@@ -9,11 +9,38 @@ DOCS:
 --]]
 return {
   {
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    dependencies = {
+      { 'Bilal2453/luvit-meta', lazy = true },
+    },
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        { plugins = { "nvim-dap-ui" }, types = true },
+      },
+    },
+  },
+  {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim', opts = {
+          progress = {
+            ignore_done_already = true,
+            display = {
+              -- tempo de persistência das mensagens
+              done_ttl = 5,
+            },
+          },
+          notification = {
+            override_vim_notify = true,
+          },
+        },
+      },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
