@@ -11,5 +11,10 @@ return {
   ---@type AutoSession.Config
   opts = {
     suppressed_dirs = { '~/' },
-  }
+  },
+  init = function ()
+    --DOCS:
+    -- `:help sessionoptions`
+    vim.o.sessionoptions="curdir,folds,help,tabpages,winsize,winpos,localoptions"
+  end
 }
