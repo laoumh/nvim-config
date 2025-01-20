@@ -19,6 +19,9 @@ vim.opt.mouse = ''
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- Mostra mensagem se arquivo foi alterado externamente
+vim.opt.autoread = false
+
 -- Habilita spellcheck
 -- Agenda essa configuração porque spell carrega em memória arquivo com palavras
 -- Ver `:help spell-remarks`
