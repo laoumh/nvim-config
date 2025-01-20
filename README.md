@@ -15,7 +15,9 @@ sudo snap install nvim --classic
 - Utilitários: `git`, `make`, `unzip`, compilador C (`gcc`)
   - Instalar `build-essential`
 - [ripgrep](https://github.com/BurntSushi/ripgrep#installation)
-  - Disponível no repositório Debian
+  - Disponível no repositório Debian como `ripgrep`
+- [fd](https://github.com/sharkdp/fd)
+  - Disponível no repositório Debian como `fd-find`
 - Clipboard tool (`xclip`/`wl-clipboard`)
 - [Nerd Font](https://www.nerdfonts.com/)
   - Se instalado, configurar `vim.g.have_nerd_font`

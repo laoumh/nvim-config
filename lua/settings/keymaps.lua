@@ -14,6 +14,11 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<C-Q>', '<cmd>qall<CR>', { desc = 'Fecha NeoVim' })
 -- Abre lista quickfix
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- Mostra ou esconde diagnósticos
+vim.keymap.set('n', '<leader>D', function ()
+  -- bufnr = 0 --> somente buffer atual
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled({bufnr = 0}), {bufnr = 0})
+end, { desc = 'Toggle Diagnostics' })
 
 --[[Atalhos de janela e abas]]
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
