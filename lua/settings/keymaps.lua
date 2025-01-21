@@ -17,7 +17,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Mostra ou esconde diagnósticos
 vim.keymap.set('n', '<leader>D', function ()
   -- bufnr = 0 --> somente buffer atual
-  vim.diagnostic.enable(not vim.diagnostic.is_enabled({bufnr = 0}), {bufnr = 0})
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, { desc = 'Toggle Diagnostics' })
 
 --[[Atalhos de janela e abas]]
