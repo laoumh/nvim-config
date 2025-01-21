@@ -13,18 +13,27 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
-      "rcarriga/nvim-dap-ui",
-      "nvim-neotest/nvim-nio",
+    version = "*",
+      { "rcarriga/nvim-dap-ui" , version = "*"},
+      { "nvim-neotest/nvim-nio", version = "*"},
     },
     ft = {"python"},
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
 
-      -- Configura aparência
+      -- [[ CONFIGURA APARÊNCIA ]]
       vim.fn.sign_define('DapBreakpoint', {text='', texthl='', linehl='', numhl=''})
       vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='', linehl='', numhl=''})
       vim.fn.sign_define('DapStopped', {text='', texthl='', linehl='Cursor', numhl=''})
+
+      dapui.setup({
+        controls = {
+          element = "repl",
+          -- Não mostra ícones de debug no REPL
+          enabled = false,
+        },
+      })
 
       -- [[ CONFIGURA ATALHOS ]]
       local wk = require("which-key")
@@ -69,10 +78,12 @@ return {
             desc = "Restart", icon = {icon = "", color = "yellow"}
           },
           { "<leader>ds", function ()
-              dap.disconnect()
+              for _, session in pairs(dap.sessions()) do
+                session:disconnect()
+              end
               dapui.close()
             end,
-            desc = "Stop debugging", icon = {icon = "", color = "red"}
+            desc = "Stop (disconnect all sessions)", icon = {icon = "", color = "red"}
           },
 
           -- inspeção de variáveis
@@ -102,24 +113,47 @@ return {
           },
         },
       })
-      -- Configura nvim-dap-ui
-      dapui.setup({
-        controls = {
-          element = "repl",
-          enabled = false,
+      -- Controla Painéis
+      wk.add({
+        { "<leader>dp", group = "Control UI Panels", icon = { icon = "󱂬", color = "yellow" }, mode = "n" },
+        {
+          mode = "n",
+          -- Abre painéis dapui
+          { "<leader>dpo", function ()
+              dapui.open({ reset = true })
+            end,
+            desc = "Open all panels",
+            icon = { icon = "󰏋", color = "green" }
+          },
+          -- Fecha painéis dapui
+          { "<leader>dpc", function ()
+              dapui.close()
+            end,
+            desc = "Close all panels",
+            icon = { icon = "", color = "red" }
+          },
+          { "<leader>dpl", function ()
+              dapui.toggle({ layout = 1, reset = true })
+            end,
+            desc = "Toggle left panel",
+            icon = { icon = "󱂪", color = "yellow" }
+          },
+          { "<leader>dpb", function ()
+              dapui.toggle({ layout = 2, reset = true })
+            end,
+            desc = "Toggle bottom panel",
+            icon = { icon = "󱂩", color = "yellow" }
+          },
         },
       })
+
+      -- [[ CONFIGURA INICIALIZAÇÃO / FINALIZAÇÃO ]]
       -- Abre UI automaticamente ao iniciar debugger
       dap.listeners.before.launch.dapui_config = dapui.open
       dap.listeners.before.attach.dapui_config = dapui.open
-
       -- Limpa linha de comando
       dap.listeners.before.event_initialized.dapui_config = function ()
         print(" ")
-      end
-
-      dap.listeners.after.event_exited.dapui_config = function ()
-        vim.notify("Debugger encerrado", vim.log.levels.INFO)
       end
     end
   },
