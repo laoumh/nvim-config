@@ -1,4 +1,4 @@
-# nvim-config
+#nvim-config
 
 Configuração baseada em [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).
 
@@ -75,3 +75,13 @@ sshfs -o allow_root [usuario@]<servidor_removo>:</diretorio/projeto/alvo> <~/mnt
 
 Ver *issue* [Unable to open visual studio code
 when inside sshfs mounted drive UBUNTU WSL](https://askubuntu.com/a/1385497).
+
+## TODO
+
+- Debugger
+ - [ ] Desabilitar diagnósticos por padrão?
+ - [ ] Inicializar debugger com painéis abertos ou fechados?
+- Plugins
+ - [ ] Definir versões para plugins que mantém tags
+ - [ ] Possível salvar histórico de navegação na sessão (ctrl+i / ctrl+o)?
+
