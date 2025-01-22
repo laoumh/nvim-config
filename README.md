@@ -1,4 +1,4 @@
-#nvim-config
+# nvim-config
 
 Configuração baseada em [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).
 
@@ -79,9 +79,13 @@ when inside sshfs mounted drive UBUNTU WSL](https://askubuntu.com/a/1385497).
 ## TODO
 
 - Debugger
- - [ ] Desabilitar diagnósticos por padrão?
- - [ ] Inicializar debugger com painéis abertos ou fechados?
+  - [ ] Desabilitar diagnósticos por padrão?
+  - [ ] Inicializar debugger com painéis abertos ou fechados?
+- LSP
+  - [ ] Talvez instalar automaticamente alguns LSPs
 - Plugins
- - [ ] Definir versões para plugins que mantém tags
- - [ ] Possível salvar histórico de navegação na sessão (ctrl+i / ctrl+o)?
-
+  - [ ] Definir versões para plugins que mantém tags
+  - [ ] Possível salvar histórico de navegação na sessão (ctrl+i / ctrl+o)?
+- Snippets
+  - [ ] Reconfigurar atalhos e navegação em snippets
+  - [ ] Como autocompletar/sugestões em snippets?
