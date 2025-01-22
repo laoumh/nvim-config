@@ -25,11 +25,7 @@ return  { -- Useful plugin to show you pending keybinds.
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-        { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
-        { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]oggle' },
         { '<leader>g', group = '[g]it Hunk', mode = { 'n', 'v' } },
 
         -- Configura modo diff
@@ -38,6 +34,7 @@ return  { -- Useful plugin to show you pending keybinds.
         { 'dml', '<cmd>.,. diffget<CR>', desc = 'get linha atual', mode = { 'n' } },
         { 'dmpb', '<cmd>diffput<CR>', desc = 'put bloco', mode = { 'n' } },
         { 'dmpl', '<cmd>.,. diffput<CR>', desc = 'put linha atual', mode = { 'n' } },
+        { 'dmo', require('utils.diff-orig').diff_orig, desc = 'Diff changes to [o]riginal file', mode = { 'n' } },
       },
     },
   }
