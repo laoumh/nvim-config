@@ -16,19 +16,48 @@ return {
       cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
   },
-  {
-    'hrsh7th/nvim-cmp',
+  -- nvim-cmp sources
+  { 'saadparwaiz1/cmp_luasnip', dependencies = { 'hrsh7th/nvim-cmp' } },
+  { 'hrsh7th/cmp-nvim-lsp', dependencies = { 'hrsh7th/nvim-cmp' } },
+  { 'hrsh7th/cmp-path', dependencies = { 'hrsh7th/nvim-cmp' } },
+  { 'hrsh7th/cmp-buffer', dependencies = { 'hrsh7th/nvim-cmp' } },
+  { 
+    'hrsh7th/cmp-cmdline',
+    dependencies = { 'hrsh7th/nvim-cmp' },
+    config = function ()
+      -- `/` Autocompleta busca com termos do buffer
+      local cmp = require 'cmp'
+      cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+      -- `:` Autocompleta comandos
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          {
+            name = 'cmdline',
+            option = {
+              ignore_cmds = { 'Man', '!' }
+            }
+          }
+        })
+      })
+    end
+  },
+  -- nvim-cmp main plugin
+  { 'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       "luasnip",
-      'saadparwaiz1/cmp_luasnip',
+      -- 'saadparwaiz1/cmp_luasnip',
       --  nvim-cmp does not ship with all sources by default. They are split
       --  into multiple repos for maintenance purposes.
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-cmdline', -- autocompletar para os comandos do nvim. Remover se for intrusivo
     },
     config = function()
       -- See `:help cmp`

@@ -86,6 +86,5 @@ when inside sshfs mounted drive UBUNTU WSL](https://askubuntu.com/a/1385497).
 - Plugins
   - [ ] Definir versões para plugins que mantém tags
   - [ ] Possível salvar histórico de navegação na sessão (ctrl+i / ctrl+o)?
-- Snippets
+- Autocompletar
   - [ ] Reconfigurar atalhos e navegação em snippets
-  - [ ] Como autocompletar/sugestões em snippets?
