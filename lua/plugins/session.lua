@@ -1,4 +1,7 @@
 -- Session managers
+
+local session_breakpoints = require('utils.session-breakpoints')
+
 return {
   -- NOTE:
   -- Comando `:SessionSearch` abre menu com sessões disponíveis
@@ -11,6 +14,9 @@ return {
   ---@type AutoSession.Config
   opts = {
     suppressed_dirs = { '~/' },
+    post_save_cmds = { session_breakpoints.save_session_breakpoints },
+    post_restore_cmds = { session_breakpoints.restore_session_breakpoints },
+    pre_delete_cmds = { session_breakpoints.delete_session_breakpoints },
   },
   init = function ()
     --DOCS:
