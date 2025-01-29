@@ -148,9 +148,11 @@ return {
       })
 
       -- [[ CONFIGURA INICIALIZAÇÃO / FINALIZAÇÃO ]]
-      -- Abre UI automaticamente ao iniciar debugger
-      dap.listeners.before.launch.dapui_config = dapui.open
-      dap.listeners.before.attach.dapui_config = dapui.open
+      local function on_open_config()
+        vim.notify_once("Debugger iniciado. Abrir DAP UI se necessário.")
+      end
+      dap.listeners.before.launch.dapui_config = on_open_config
+      dap.listeners.before.attach.dapui_config = on_open_config
       -- Limpa linha de comando
       dap.listeners.before.event_initialized.dapui_config = function ()
         print(" ")
