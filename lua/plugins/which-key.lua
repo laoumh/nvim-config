@@ -21,7 +21,7 @@ return  { -- Useful plugin to show you pending keybinds.
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
       },
-      expand = 0,
+      expand = 1,
 
       -- Document existing key chains
       spec = {

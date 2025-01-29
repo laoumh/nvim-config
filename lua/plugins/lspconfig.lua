@@ -9,6 +9,21 @@ DOCS:
 --]]
 return {
   {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+       "nvim-treesitter/nvim-treesitter",
+       "nvim-tree/nvim-web-devicons"
+    },
+    init = function ()
+      local wk = require('which-key')
+      wk.add({
+        {"<leader>co", '<Cmd>AerialToggle left<cr>', desc = "[C]ode [O]utline", icon = {icon = "", color = "blue"} },
+      })
+    end
+  },
+  {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
     'folke/lazydev.nvim',
