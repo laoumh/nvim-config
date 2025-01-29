@@ -1,5 +1,4 @@
 -- Recarrega logs automaticamente
-vim.opt_local.updatetime = 1000
 vim.opt_local.autoread = true
 
 local fname = vim.fn.expand("%:p")
