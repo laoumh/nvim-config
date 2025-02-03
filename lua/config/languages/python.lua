@@ -1,14 +1,20 @@
 --[[ LSP
 DOCS:
-Instalar python-lsp-server:
-  - `:MasonInstall python-lsp-server`
-  - Ou usando pip
-  - Ver https://github.com/python-lsp/python-lsp-server
+  - https://github.com/python-lsp/python-lsp-server
+  - https://microsoft.github.io/pyright/#/configuration
 
 --]]
-require('lspconfig').pylsp.setup({
+require('lspconfig').pyright.setup({
   capabilities = require('utils.extend-capabilities'),
 })
+
+--[[ Linter
+ WARN:
+`pylint` tem que estar instalado
+no ambiente virtual de cada projeto
+
+--]]
+require('lint').linters_by_ft['python'] = { 'pylint' }
 
 --[[ DAP
 DOCS:
