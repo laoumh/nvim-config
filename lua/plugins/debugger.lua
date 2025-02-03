@@ -149,7 +149,11 @@ return {
 
       -- [[ CONFIGURA INICIALIZAÇÃO / FINALIZAÇÃO ]]
       local function on_open_config()
-        vim.notify_once("Debugger iniciado. Abrir DAP UI se necessário.")
+        local start_msg = "Debugger: sessão iniciada com configuração\n"
+        for k,v in pairs(dap.session()['config']) do
+          start_msg = start_msg .. vim.inspect(k) .. ": " .. vim.inspect(v) .. "\n"
+        end
+        vim.notify(start_msg)
       end
       dap.listeners.before.launch.dapui_config = on_open_config
       dap.listeners.before.attach.dapui_config = on_open_config

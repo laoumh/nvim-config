@@ -19,7 +19,7 @@ return {
     init = function ()
       local wk = require('which-key')
       wk.add({
-        {"<leader>co", '<Cmd>AerialToggle left<cr>', desc = "[C]ode [O]utline", icon = {icon = "", color = "blue"} },
+        {"<leader>\\", '<Cmd>AerialToggle left<cr>', desc = "Code Outline", icon = {icon = "", color = "blue"} },
       })
     end
   },

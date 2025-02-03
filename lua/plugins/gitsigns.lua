@@ -19,9 +19,19 @@ return {
         changedelete = { text = '~' },
         untracked    = { text = '┆' },
       },
-    signs_staged_enable = true,
+      signs_staged_enable = true,
       on_attach = function(bufnr)
         local gitsigns = require 'gitsigns'
+
+        -- Configura cores
+        local add_color = 'NvimLightGreen'
+        local change_color = 'NvimLightYellow'
+        vim.cmd.highlight('GitSignsAdd guifg=' .. add_color)
+        vim.cmd.highlight('clear GitSignsStagedAdd')
+        vim.cmd.highlight('link GitSignsStagedAdd GitSignsAdd')
+        vim.cmd.highlight('GitSignsChange guifg=' .. change_color)
+        vim.cmd.highlight('clear GitSignsStagedChange')
+        vim.cmd.highlight('link GitSignsStagedChange GitSignsChange')
 
         local function map(mode, l, r, opts)
           opts = opts or {}
