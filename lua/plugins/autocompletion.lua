@@ -1,5 +1,62 @@
 -- Autocompletion plugins
 -- Autoformat: se algum dia precisar, ver 'stevearc/conform.nvim'
+
+-- DOCS:
+-- cmp.mapping(<ação>, {<modos>})
+--
+-- [[ Completion menu navigation ]]
+local function get_menu_mapping()
+  local cmp = require('cmp')
+  local mapping = {
+    -- Select next or previous suggestion
+    ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i', 'c'}),
+    ['<PageDown>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select , count = 5}), {'i', 'c'}),
+    ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i', 'c'}),
+    ['<PageUp>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select , count = 5}), {'i', 'c'}),
+    -- Scroll the documentation window [b]ack / [f]orward
+    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
+    ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+    -- Accept selected suggestion
+    ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = false }), {'i', 'c'}),
+    ['<C-y>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), {'i', 'c'}),
+    -- Toggle completion menu
+    ['<C-Space>'] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.abort()
+      else
+        cmp.complete()
+      end
+    end, {'i', 'c', 's'}),
+  }
+
+  return mapping
+end
+
+-- [[ Snippet navigation ]]
+-- DOCS:
+-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+local function get_snippet_mapping()
+  local cmp = require('cmp')
+  local luasnip = require('luasnip')
+  local mapping = {
+    -- jump right
+    ['<C-l>'] = cmp.mapping(function()
+      if luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
+      end
+    end, { 'i', 's' }),
+    -- jump left
+    ['<C-h>'] = cmp.mapping(function()
+      if luasnip.locally_jumpable(-1) then
+        luasnip.jump(-1)
+      end
+    end, { 'i', 's' }),
+  }
+
+  return mapping
+end
+
 return {
   -- Detect tabstop and shiftwidth automatically
   { 'tpope/vim-sleuth' },
@@ -29,14 +86,14 @@ return {
       local cmp = require 'cmp'
       cmp.setup.cmdline('/', {
         native_menu = false,
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmp.mapping.preset.cmdline(get_menu_mapping()),
         sources = {
           { name = 'buffer' }
         }
       })
       -- `:` Autocompleta comandos
       cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmp.mapping.preset.cmdline(get_menu_mapping()),
         sources = cmp.config.sources({
           { name = 'path' }
         }, {
@@ -80,46 +137,7 @@ return {
         -- DOCS:
         -- `:help ins-completion`
         -- `:help key-notation` para como especificar teclas
-        mapping = cmp.mapping.preset.insert {
-          -- Select next or previous suggestion
-          ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-          ['<PageDown>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select , count = 5}),
-          ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-          ['<PageUp>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select , count = 5}),
-          -- Scroll the documentation window [b]ack / [f]orward
-          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-u>'] = cmp.mapping.scroll_docs(4),
-          -- Accept selected suggestion
-          ['<CR>'] = cmp.mapping.confirm({ select = false }),
-          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-          -- Toggle completion menu
-          ['<C-Space>'] = cmp.mapping(function()
-            if cmp.visible() then
-              cmp.abort()
-            else
-              cmp.complete()
-            end
-          end, {'i', 's'}),
-
-          -- [[ Snippet navigation ]]
-          -- DOCS:
-          -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-          --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-          --
-          -- jump right
-          ['<C-l>'] = cmp.mapping(function()
-            if luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            end
-          end, { 'i', 's' }),
-          -- jump left
-          ['<C-h>'] = cmp.mapping(function()
-            if luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            end
-          end, { 'i', 's' }),
-
-        },
+        mapping = cmp.mapping.preset.insert(vim.tbl_extend('force', get_menu_mapping(), get_snippet_mapping())) ,
         sources = {
           {
             name = 'lazydev',

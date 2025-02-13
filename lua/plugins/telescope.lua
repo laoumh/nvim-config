@@ -54,9 +54,12 @@ return  { -- Fuzzy Finder (files, lsp, etc)
         defaults = {
           path_display = { 'truncate' },
           sorting_strategy = "ascending",
-          -- mappings = {
-          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          -- },
+          mappings = {
+            i = {
+              ["<C-j>"] = "move_selection_worse",
+              ["<C-k>"] = "move_selection_better",
+            },
+          },
         },
         -- pickers = {}
         extensions = {
