@@ -17,6 +17,7 @@ require("config.lazy")
 
 -- Carrega configurações específicas de linguagens
 require("config.languages.css")
+require("config.languages.go")
 require("config.languages.html")
 require("config.languages.json")
 require("config.languages.markdown")
