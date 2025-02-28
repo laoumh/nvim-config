@@ -108,6 +108,36 @@ return {
       })
     end
   },
+  {
+    -- Palavras do dicionário
+    'uga-rosa/cmp-dictionary',
+    dependencies = { 'hrsh7th/nvim-cmp' },
+    config = function ()
+      local cmp = require 'cmp'
+      cmp.setup.filetype('markdown', {
+        performance = {
+          max_view_entries = 7,
+        },
+        sources = {
+          { name = 'luasnip' },
+          { name = 'buffer' },
+          { name = 'path' },
+          {
+            name = "dictionary",
+            keyword_length = 3,
+          },
+        }
+      })
+
+      require("cmp_dictionary").setup({
+        paths = {
+          "/usr/share/dict/brazilian",
+          "/usr/share/dict/american-english",
+        },
+        exact_length = 3,
+      })
+    end
+  },
   -- nvim-cmp main plugin
   {
     'hrsh7th/nvim-cmp',
