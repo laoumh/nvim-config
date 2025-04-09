@@ -82,3 +82,12 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+-- Habilita bordas em janelas flutuantes
+vim.opt.winborder = 'rounded'
+
+-- Mostra texto virtual do diagnóstico na linha atual
+vim.diagnostic.config({
+  virtual_lines = { current_line = true },
+})
+

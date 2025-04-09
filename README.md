@@ -83,6 +83,7 @@ when inside sshfs mounted drive UBUNTU WSL](https://askubuntu.com/a/1385497).
   - [ ] Inicializar debugger com painéis abertos ou fechados?
 - LSP
   - [ ] Talvez instalar automaticamente alguns LSPs
+  - [ ] Ajustes para [versão 0.11](https://gpanders.com/blog/whats-new-in-neovim-0-11/#lsp). `:H news-breaking`
 - Plugins
   - [ ] Definir versões para plugins que mantém tags
   - [ ] Possível salvar histórico de navegação na sessão (ctrl+i / ctrl+o)?
