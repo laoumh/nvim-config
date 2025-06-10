@@ -6,15 +6,23 @@ DOCS:
 --]]
 require('lspconfig').pyright.setup({
   capabilities = require('utils.extend-capabilities'),
+  settings = {
+    python = {
+      analysis = {
+        -- Desabilita diagnóstico do pyright, já que também há um linter
+        typeCheckingMode = "off",
+      },
+    },
+  },
 })
 
 --[[ Linter
  WARN:
-`pylint` tem que estar instalado
-no ambiente virtual de cada projeto
+ linter tem que estar instalado
+ no ambiente virtual de cada projeto
 
 --]]
-require('lint').linters_by_ft['python'] = { 'pylint' }
+require('lint').linters_by_ft['python'] = { 'ruff' }
 
 --[[ DAP
 DOCS:
