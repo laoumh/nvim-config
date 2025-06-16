@@ -23,13 +23,14 @@ end, { nargs = '*', complete = 'help' })
 
 -- Realça espaço em branco à direita, mas não quando em modo inserção
 -- Ver `:help highlight-groups` para mais opções de cores
-vim.api.nvim_create_autocmd({"BufEnter", "InsertLeave"}, {
+vim.api.nvim_create_autocmd({"WinEnter", "InsertLeave"}, {
   desc = "Highlight trailing spaces",
   group = vim.api.nvim_create_augroup("highlight-trail", { clear = true }),
   callback = function()
     vim.schedule(function()
-      if not vim.g.trailing_whitespace_match then
-        vim.g.trailing_whitespace_match = vim.fn.matchadd("Substitute", "\\s\\+$")
+      local is_floating_window = vim.api.nvim_win_get_config(0).relative ~= ''
+      if not is_floating_window and not vim.w.trailing_whitespace_match then
+        vim.w.trailing_whitespace_match = vim.fn.matchadd("Substitute", "\\s\\+$")
       end
     end)
   end,
@@ -38,7 +39,9 @@ vim.api.nvim_create_autocmd({"InsertEnter"}, {
   desc = "Remove highlight trailing spaces",
   group = vim.api.nvim_create_augroup("remove-highlight-trail", { clear = true }),
   callback = function()
-    vim.fn.matchdelete(vim.g.trailing_whitespace_match)
-    vim.g.trailing_whitespace_match = nil
+    if vim.w.trailing_whitespace_match then
+      vim.fn.matchdelete(vim.w.trailing_whitespace_match)
+      vim.w.trailing_whitespace_match = nil
+    end
   end,
 })
