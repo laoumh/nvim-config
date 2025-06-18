@@ -15,3 +15,17 @@ vim.b.match_words = table.concat({
   '{% spaceless\\>:\\<endspaceless\\s*%}',
   '{% with\\>:\\<endwith\\s*%}',
 }, ',')
+
+-- Duplica '%%'
+local Rule = require('nvim-autopairs.rule')
+local npairs = require('nvim-autopairs')
+local cond = require('nvim-autopairs.conds')
+npairs.add_rules({
+  Rule("%","%","htmldjango")
+    :with_pair(cond.before_text("{")),
+  Rule(" "," ","htmldjango")
+    -- :with_pair(cond.before_text("%"))
+    -- :with_pair(cond.before_text("{")),
+    :with_pair(cond.before_regex("{%%-")),
+})
+
