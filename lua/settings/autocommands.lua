@@ -45,3 +45,16 @@ vim.api.nvim_create_autocmd({"InsertEnter"}, {
     end
   end,
 })
+
+-- Notifica alteração
+vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
+  desc = "Notifica arquivo alterado",
+  group = vim.api.nvim_create_augroup("notifica-arquivo-alterado", { clear = true }),
+  callback = function()
+    vim.notify("Arquivo modificado. Recarregando.", vim.log.levels.INFO)
+    local lib_exists, gitsigns = pcall(require, "gitsigns")
+    if lib_exists then
+      gitsigns.refresh()
+    end
+  end,
+})

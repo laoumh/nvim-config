@@ -22,8 +22,9 @@ vim.opt.showmode = false
 -- Global statusline
 vim.opt.laststatus = 3
 
--- Mostra mensagem se arquivo foi alterado externamente
-vim.opt.autoread = false
+-- Recarrega arquivo alterado externamente automaticamente
+-- Ex: git checkout <tree-ish>
+vim.opt.autoread = true
 
 -- Habilita spellcheck
 -- Agenda essa configuração porque spell carrega em memória arquivo com palavras
