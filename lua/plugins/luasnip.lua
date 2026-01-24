@@ -14,6 +14,7 @@ return {
   },
   -- Carrega snippets
   config = function()
-    require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/vscode-snippets" } })
+    require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/snippets/vscode-snippets/" } })
+    require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/.config/nvim/snippets/luasnippets/" } })
   end
 }
