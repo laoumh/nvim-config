@@ -3,6 +3,8 @@
 --  - Repo: 'rafamadriz/friendly-snippets'
 --  - Package: https://github.com/rafamadriz/friendly-snippets/blob/main/package.json
 --  - Snippets: https://github.com/rafamadriz/friendly-snippets/tree/main/snippets
+-- Tutorial:
+--  - https://ejmastnak.com/tutorials/vim-latex/luasnip/
 
 return {
   'L3MON4D3/LuaSnip',

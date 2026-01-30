@@ -39,6 +39,31 @@ local snippets = {
       { i(1), i(2), rep(1) }
     )
   ),
+  s({trig="items"},
+    fmta(
+      [[
+      \begin{itemize}
+        \item <>
+        \item <>
+      \end{itemize}
+      ]],
+      { i(1), i(2) }
+    )
+  ),
+  s({trig="fig-minipage"},
+    fmta(
+      [[
+      \begin{minipage_figure}
+        \includegraphics[width=\textwidth]{<>}
+        \caption[<>]{
+        <>
+        }
+        \label{fig:<>}
+      \end{minipage_figure}
+      ]],
+      { i(1), i(2), i(3), i(4) }
+    )
+  ),
 }
 
 return snippets
